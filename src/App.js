@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'
+import ToDoForm from './components/ToDoForm';
 import './App.css';
+import ToDoDisplay from './components/ToDoDisplay';
 
+// lift state
+// 1 parent component - create state & function to change the state
 function App() {
+  const [tasks, setTasks] = useState([])
+
+  const receiveNewTask = (newTask) => {
+    setTasks([...tasks, newTask])
+  }
+
+  const handleUpdate = (allTasks) =>
+    setTasks(allTasks)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container bg-dark text-warning w-50 mt-5 p-3 ">
+      <ToDoForm onNewTask={receiveNewTask} />
+      <ToDoDisplay tasks={tasks} handleUpdate={handleUpdate} />
     </div>
   );
 }
